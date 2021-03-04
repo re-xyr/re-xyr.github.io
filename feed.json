@@ -1,0 +1,58 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "喵.世界",
+    "home_page_url": "http://xn--i2r.xn--rhqv96g/",
+    "feed_url": "http://xn--i2r.xn--rhqv96g/feed.json",
+    "description": "ex falso quodlibet.",
+    "items": [
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2020/06/13/moving-on/",
+            "url": "http://xn--i2r.xn--rhqv96g/2020/06/13/moving-on/",
+            "title": "出发，以及关于本博客的样式",
+            "summary": "距离上次写博客已经四个多月了。四个多月以来我好像做了很多事情，又好像什么都没做。总之，是时候做一点改变了。",
+            "date_modified": "2020-06-13T14:55:07.000Z"
+        },
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2020/07/15/styling-in-blogging/",
+            "url": "http://xn--i2r.xn--rhqv96g/2020/07/15/styling-in-blogging/",
+            "title": "撰写博客的技术性细节",
+            "summary": "在撰写博客（以及任何一篇使用电脑排版的文章；纸质文章则不在乎过多，因为我写过的纸质文章大多不过是应试文章，不值得倾注过多注意力——同时也因为我的手写习惯非常之差，字体极丑）中，我常常会关注一些无关紧要的技术性细节。此处「无关紧要」一词是指相对于文章内容来说；但我认为这些细节对于读者的阅读体验（以及自我满足）来说，是至关重要的。",
+            "date_modified": "2020-07-15T13:20:05.000Z"
+        },
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2020/07/22/arend-tutorial-part-i-synndef/",
+            "url": "http://xn--i2r.xn--rhqv96g/2020/07/22/arend-tutorial-part-i-synndef/",
+            "title": "Arend 教程，第一部分：1. 基础",
+            "summary": "在本章里，我们将介绍 Arend 语言的语法和一些基本结构，以便接下来学习书写定义、命题和证明。",
+            "date_modified": "2020-07-22T11:48:19.000Z"
+        },
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-propsnproofs/",
+            "url": "http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-propsnproofs/",
+            "title": "Arend 教程，第一部分：2. 命题与证明",
+            "summary": "Arend 是基于 Martin-Lof 类型论的一个变种而开发的。这类理论中并不存在一种专门用来表达命题和证明的逻辑语言。相反地，他们通过 Curry-Howard 对应来将命题编码为类型。假命题对应的是空类型，而真命题对应的是单元类型。一个类型的不同元素可以被认为是证明一个命题的不同方法。举个例子，自然数类型就对应了「自然数存在」这个命题，而这个类型的每个元素就是这个命题的一个证明。",
+            "date_modified": "2020-07-24T01:04:29.000Z"
+        },
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-datanproofs/",
+            "url": "http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-datanproofs/",
+            "title": "Arend 教程，第一部分：3. 索引数据类型",
+            "summary": "如果我们的列表是 nil，那么我们只需要返回 nil。如果列表是 cons x xs，那么我们在 xs 上递归地调用排序并使用（同样基于 List 上的递归而定义的）函数 insert 将 x 插入排序结果。",
+            "date_modified": "2020-07-24T23:19:19.000Z"
+        },
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2020/09/26/arend-tutorial-part-i-idtype/",
+            "url": "http://xn--i2r.xn--rhqv96g/2020/09/26/arend-tutorial-part-i-idtype/",
+            "title": "Arend 教程，第一部分：4. 相等性",
+            "summary": "=> (f (\\lam x => a = x)).1 idp\n`",
+            "date_modified": "2020-09-26T02:29:41.000Z"
+        },
+        {
+            "id": "http://xn--i2r.xn--rhqv96g/2021/03/04/suicide/",
+            "url": "http://xn--i2r.xn--rhqv96g/2021/03/04/suicide/",
+            "title": "记录一次自杀未遂",
+            "summary": "他的眼睛是那么愤怒，嘴也在抽搐，我想后退但是身体已经僵住动不了了。",
+            "date_modified": "2021-03-04T05:06:05.000Z"
+        }
+    ]
+}

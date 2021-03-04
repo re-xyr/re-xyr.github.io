@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Arend 教程，第一部分：4. 相等性 | 喵.世界</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;0,900;1,300;1,700&amp;display=swap">
+    <link rel="alternate" type="application/rss+xml" href="http://xn--i2r.xn--rhqv96g/rss.xml" title="喵.世界 RSS Feed">
+    <link rel="alternate" type="application/atom+xml" href="http://xn--i2r.xn--rhqv96g/feed.atom" title="喵.世界 Atom Feed">
+    <link rel="alternate" type="application/json" href="http://xn--i2r.xn--rhqv96g/feed.json" title="喵.世界 JSON Feed">
+    <meta name="description" content="ex falso quodlibet.">
+    <link rel="preload" href="/assets/css/0.styles.1adb2050.css" as="style"><link rel="preload" href="/assets/js/app.06d5e1c5.js" as="script"><link rel="preload" href="/assets/js/2.56236b0f.js" as="script"><link rel="preload" href="/assets/js/13.a2e1283e.js" as="script"><link rel="prefetch" href="/assets/js/10.19f19bfc.js"><link rel="prefetch" href="/assets/js/11.0f47e20b.js"><link rel="prefetch" href="/assets/js/12.198c651c.js"><link rel="prefetch" href="/assets/js/14.c4c8b1b1.js"><link rel="prefetch" href="/assets/js/3.f8636a19.js"><link rel="prefetch" href="/assets/js/4.5045db6d.js"><link rel="prefetch" href="/assets/js/5.bfd381c1.js"><link rel="prefetch" href="/assets/js/6.cbf3dfef.js"><link rel="prefetch" href="/assets/js/7.9c6970f3.js"><link rel="prefetch" href="/assets/js/8.ea3fdc5c.js"><link rel="prefetch" href="/assets/js/9.fdb8e2bf.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.1adb2050.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="layout"><header data-v-ccdb2dd6><h1 class="header-title" data-v-ccdb2dd6><a href="/" data-v-ccdb2dd6>Arend 教程，第一部分：4. 相等性</a></h1> <div class="header-aside" data-v-ccdb2dd6><a href="/about" class="dim-anchor" data-v-ccdb2dd6>about</a> <a href="/post" class="dim-anchor" data-v-ccdb2dd6>posts</a> <a href="/category" class="dim-anchor" data-v-ccdb2dd6>categories</a></div></header> <main><section><div class="content-metadata">
+            9/26/2020
+         <a href="/category/编程语言" class="dim-anchor">编程语言</a><a href="/category/类型论" class="dim-anchor">类型论</a><a href="/category/Arend" class="dim-anchor">Arend</a><a href="/category/翻译" class="dim-anchor">翻译</a></div> <div class="content content__default"><p><em>本文翻译自</em> <a href="https://arend-lang.github.io/documentation/tutorial/PartI/idtype" target="_blank" rel="noopener noreferrer">Arend Tutorial, Part I, Equality<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> <em>，原作者为 <a href="https://github.com/arend-lang" target="_blank" rel="noopener noreferrer">JetBrains Research HoTT and Dependent Types Group (F. Part, V. Isaev and S. Sinchuk)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。原作品在 Apache 2.0 协议下发表。</em></p> <p>在上一章中我们以一种相当粗略的方式对待相等类型，因为我们基本上只用到了自反性 <code>idp {A : \Type} {a : A} : a = a</code>。本章中我们会更加深入地讨论相等类型的定义细节，进而解释一些书写更高级的证明所必需的关键概念。具体来讲，我们将会介绍<em>区间类型</em> <code>I</code>；它的本质是被函数 <code>coe</code> （这是 <code>I</code> 的<em>析构器</em>）决定的。为了描述得清楚一点，我们还会简短介绍一下什么是析构器。</p> <h1 id="对称、传递和-leibniz-原理"><a href="#对称、传递和-leibniz-原理" class="header-anchor">#</a> 对称、传递和 Leibniz 原理</h1> <p>首先我们来证明，相等类型满足相等性的一些基本性质：</p> <ul><li>它是一个等价关系；</li> <li>它满足 Leibniz 原理。</li></ul> <p>Leibniz 原理就是说，如果 <code>a</code> 和 <code>a'</code> 满足相同的性质，那么它们就相等。我们可以很容易地证明 <code>=</code> 满足这个原理：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func Leibniz {A : \Type} {a a' : A}
+  (f : \Pi (P : A -&gt; \Type) -&gt; \Sigma (P a -&gt; P a') (P a' -&gt; P a)) : a = a'
+  =&gt; (f (\lam x =&gt; a = x)).1 idp
+</code></pre></div><p>逆 Leibniz 原理（也可以只叫成 Leibniz 原理）是说，如果 <code>a = a'</code>，那么 <code>a</code> 和 <code>a'</code> 必定满足相同的性质。也就是说，如果 <code>P a</code> 是真的，那么 <code>P a'</code> 也是真的。证明这个东西很简单，但是会用到我们一会儿才会介绍的一些构造：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func transport {A : \Type} (B : A -&gt; \Type) {a a' : A} (p : a = a') (b : B a) : B a'
+    =&gt; coe (\lam i =&gt; B (p @ i)) b right
+</code></pre></div><p>通过逆 Leibniz 原理，我们可以很容易地证明 <code>=</code> 满足几乎所有相等性的性质。比如说，我们可以证明：</p> <div class="language-arend extra-class"><pre class="language-text"><code>-- symmetry
+\func inv {A : \Type} {a a' : A} (p : a = a') : a' = a
+    =&gt; transport (\lam x =&gt; x = a) p idp
+
+-- transitivity
+\func trans {A : \Type} {a a' a'' : A} (p : a = a') (q : a' = a'') : a = a''
+    =&gt; transport (\lam x =&gt; a = x) q p
+
+-- congruence
+\func pmap {A B : \Type} (f : A -&gt; B) {a a' : A} (p : a = a') : f a = f a'
+    =&gt; transport (\lam x =&gt; f a = f x) p idp
+</code></pre></div><blockquote><p>练习 1：用 <code>transport</code> 定义接受两个参数的函数的合同性。你也可以利用其他任何通过 <code>transport</code> 定义出的函数。</p></blockquote> <blockquote><p>练习 2：证明用 <code>pmap</code> 和 <code>repl</code> 可以定义出 <code>transport</code>，反之亦然。函数 <code>repl</code> 就是说，如果两个类型相等，那么它们之间有一个函数。</p></blockquote> <h1 id="的定义"><a href="#的定义" class="header-anchor">#</a> <code>=</code> 的定义</h1> <p>相等类型的一个重要部分是 Prelude 里的<em>区间类型</em> <code>I</code>。你可能会觉得 <code>I</code> 看起来像个只有两个元素 <code>left</code> 和 <code>right</code> 的数据类型，但是你错了。这些构造器通过 <code>coe</code> 被定义成了相等的。而且我们（理所应当地）禁止在 <code>I</code> 上进行模式匹配，不然的话我们就可以证明 <code>Empty = Unit</code> 了。</p> <p><code>left = right</code> 这个相等性蕴涵了这样一个事实：某个 <code>a : A</code> 和 <code>a' : A</code> 相等，当且仅当存在一个函数 <code>f : I -&gt; A</code> 使得 <code>f left ==&gt; a</code> 而且 <code>f right ==&gt; a'</code>（<code>==&gt;</code> 代表计算相等性）。</p> <blockquote><p>（译注：这是因为，我们可以把 <code>pmap f</code> 应用到 <code>left = right</code> 上，进而得到 <code>a = a'</code>。）</p></blockquote> <p>类型 <code>a = {A} a'</code> 事实上就是所有这种函数的类型。构造器 <code>path (f : I -&gt; A) : f left = f right</code> 可以用来从这种函数中构造相等性的证明，而函数 <code>@ (p : a = a') (i : I) : A</code> 可以做相反的事情：</p> <div class="language-arend extra-class"><pre class="language-text"><code>path f @ i ==&gt; f i -- beta 等价性
+path (\lam i =&gt; p @ i) ==&gt; p -- eta 等价性
+</code></pre></div><p>要证明自反性 <code>idp</code> 的话我们只需要常量函数 <code>\lam _ =&gt; a : I -&gt; A</code>：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func idp {A : \Type} {a : A} : a = a =&gt; path (\lam _ =&gt; a)
+</code></pre></div><blockquote><p>练习 3：不用 <code>transport</code> 和 <code>coe</code> 来证明 <code>left = right</code>。</p></blockquote> <p>如果 <code>f : A -&gt; B</code> 并且 <code>g : I -&gt; A</code>，那么 <code>g</code> 就是相等性 <code>g left = g right</code> 的证明，而 <code>pmap</code> 可以理解成 <code>f</code> 和 <code>g</code> 的复合函数。注意到这两点之后，我们就可以用另一种方法定义 <code>pmap</code>：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func pmap {A B : \Type} (f : A -&gt; B) {a a' : A} (p : a = a') : f a = f a'
+    =&gt; path (\lam i =&gt; f (p @ i))
+</code></pre></div><p>这种 <code>pmap</code> 在计算的性质上比其他 <code>pmap</code> 表现更好。比如说，<code>pmap id</code> 可以直接被计算成 <code>id</code>，而 <code>pmap (f . g)</code> 会直接被计算成 <code>pmap f . pmap g</code>（<code>.</code> 是函数复合）：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func pmap-idp {A : \Type} {a a' : A} (p : a = a') : pmap {A} (\lam x =&gt; x) p = p
+    =&gt; idp
+</code></pre></div><blockquote><p>练习 4：不用 <code>transport</code> 证明 <code>a = {A} a'</code> 与 <code>b = {B} b'</code> 蕴涵了 <code>(a, b) = {\Sigma A B} (a', b')</code>。</p></blockquote> <blockquote><p>练习 5：不用 <code>transport</code> 证明 <code>p = {\Sigma (x : A) (B x)} p'</code> 蕴涵了 <code>p.1 = {A} p'.1</code>。</p></blockquote> <h1 id="函数外延性"><a href="#函数外延性" class="header-anchor">#</a> 函数外延性</h1> <p>函数外延性就是说，如果对于任何值，<code>f</code> 和 <code>g</code> 应用后的结果都相同，那么它们就是相等的函数。用我们定义的相等性来证明这条原理非常简单：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func funExt {A : \Type} (B : A -&gt; \Type) {f g : \Pi (a : A) -&gt; B a}
+    (p : \Pi (a : A) -&gt; f a = g a) : f = g
+    =&gt; path (\lam i =&gt; \lam a =&gt; p a @ i)
+</code></pre></div><p>这条原理在其他很多内涵类型论里都没法证明。那些理论中函数的外延性是作为一条公理引入的，而公理是一个没有具体实现的函数。然而，向理论里添加公理会损害它的计算性质。比如说，如果我们添加排中律 <code>lem</code> 作为一条公理，那么我们就可以定义一个没法归约到任何自然数的常数 <code>ugly_num</code>：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func lem : \Pi (X : \Type) -&gt; Either X (X -&gt; Empty) =&gt; {?}
+\func ugly_num : Nat =&gt; \case lem Nat \with { | Left =&gt; 0 | Right =&gt; 1 }
+</code></pre></div><blockquote><p>练习 6：证明 <code>(\lam x =&gt; not (not x)) = (\lam x =&gt; x)</code>。</p></blockquote> <h1 id="析构器"><a href="#析构器" class="header-anchor">#</a> 析构器</h1> <p>对于一个数据类型 <code>D</code>，它的消去原理定义了我们在构造一个从 <code>D</code> 到其他依赖或不依赖于 <code>D</code> 的类型的函数时需要提供哪种数据。更重要的是，这些原理表明了，如果我们可以说明如何把 <code>D</code> 的『生成器』（也就是构造器）映射到类型 <code>A</code>，那么我们就可以唯一确定一个函数 <code>D -&gt; A</code>。比方说，<code>Nat</code> 和 <code>Bool</code> 的析构器：</p> <div class="language-arend extra-class"><pre class="language-text"><code>-- Nat 的依赖析构器（归纳法）。
+\func Nat-elim (P : Nat -&gt; \Type)
+               (z : P zero)
+               (s : \Pi (n : Nat) -&gt; P n -&gt; P (suc n))
+               (x : Nat) : P x \elim x
+  | zero =&gt; z
+  | suc n =&gt; s n (Nat-elim P z s n)
+
+-- Nat 的非依赖析构器（递归）。
+\func Nat-rec (P : \Type)
+              (z : P)
+              (s : Nat -&gt; P -&gt; P)
+              (x : Nat) : P \elim x
+  | zero =&gt; z
+  | suc n =&gt; s n (Nat-rec P z s n)
+
+-- Bool 的依赖析构器（也就是 `if`）。
+\func Bool-elim (P : Bool -&gt; \Type)
+                (t : P true)
+                (f : P false)
+                (x : Bool) : P x \elim x
+  | true =&gt; t
+  | false =&gt; f
+</code></pre></div><blockquote><p>练习 7：不用递归和模式匹配，而用 <code>Nat-rec</code> 定义阶乘。</p></blockquote> <blockquote><p>练习 8：不用递归和模式匹配，而用 <code>Nat-elim</code> 证明 <code>Nat.+</code> 的结合律。</p></blockquote> <blockquote><p>练习 9：定义 <code>\data D | con1 Nat | con2 D D | con3 (Nat -&gt; D)</code> 的递归器和析构器。（译注：『析构器』指的是依赖析构器，『递归器』指的是非依赖的析构器。）</p></blockquote> <blockquote><p>练习 10：定义 <code>List</code> 的递归器和析构器。</p></blockquote> <p>而 <code>coe</code> 就定义了 <code>I</code> 的依赖析构器，也就是说对于某个 <code>P : I -&gt; \Type</code>，如果我们要定义 <code>f : \Pi (i : I) -&gt; P i</code> 的话，给出 <code>f left</code> 就足够了：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func coe (P : I -&gt; \Type)
+          (a : P left)
+          (i : I) : P i \elim i
+  | left =&gt; a
+</code></pre></div><blockquote><p>练习 11：我们用 <code>coe</code> 定义了 <code>transport</code>。我们还可以用 <code>transport</code> 定义 <code>coe</code> 的一个特殊情况。用 <code>transport</code> 定义 <code>coe0 (A : I -&gt; \Type) (a : A left) : A right</code>，并思考是否反之亦然。</p></blockquote> <blockquote><p>练习 12：定义一个函数 <code>B right -&gt; B left</code>。</p></blockquote> <h1 id="left-right"><a href="#left-right" class="header-anchor">#</a> <code>left = right</code></h1> <p>通过 <code>coe</code> 我们可以证明，<code>I</code> 只有一个元素：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func left=i (i : I) : left = i
+  -- | left =&gt; idp
+  =&gt; coe (\lam i =&gt; left = i) idp i
+
+-- 特别地，left = right。
+\func left=right : left = right =&gt; left=i right
+</code></pre></div><h1 id="coe-和-transport"><a href="#coe-和-transport" class="header-anchor">#</a> <code>coe</code> 和 <code>transport</code></h1> <p>函数 <code>coe</code> 和 <code>transport</code> 紧密相关。回忆一下，本章中 <code>transport</code> 的定义是：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func transport {A : \Type} (B : A -&gt; \Type) {a a' : A} (p : a = a') (b : B a) : B a'
+     =&gt; coe (\lam i =&gt; B (p @ i)) b right
+</code></pre></div><p>令 <code>B'</code> 表示 <code>\lam i =&gt; B (p @ i)</code>。于是 <code>B' : I -&gt; \Type</code>，<code>B' left ==&gt; B a</code>，<code>B' right ==&gt; B a'</code> 并且 <code>\lam x =&gt; coe B' x right : B' left -&gt; B' right</code>。</p> <h1 id="不等性的证明"><a href="#不等性的证明" class="header-anchor">#</a> 不等性的证明</h1> <p>要证明 <code>true</code> 不等于 <code>false</code>，我们可以定义一个函数 <code>T : Bool -&gt; \Type</code> 使得 <code>T true</code> 是单元类型而 <code>T false</code> 是空类型。接着我们可以很容易通过 <code>true = false</code> 用 <code>transport</code> 推导出矛盾：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func true/=false (p : true = false) : Empty =&gt; transport T p unit
+</code></pre></div><p>注意我们不可能通过这个证明 <code>left</code> 不等于 <code>right</code>，因为我们不能对 <code>I</code> 归纳定义 <code>T</code>：</p> <div class="language-arend extra-class"><pre class="language-text"><code>-- 这个函数没法通过类型检查
+\func TI (b : I)
+  | left =&gt; \Sigma
+  | right =&gt; Empty
+</code></pre></div><blockquote><p>练习 13：证明 <code>0</code> 不等于 <code>suc x</code>。</p></blockquote> <blockquote><p>练习 14：证明 <code>fac</code> 不等于 <code>suc</code>。</p></blockquote></div></section></main> <div class="footer" data-v-ffd512ae><a href="/about.html#copy" class="dim-anchor" data-v-ffd512ae>© xy 2019 - 2021</a></div></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.06d5e1c5.js" defer></script><script src="/assets/js/2.56236b0f.js" defer></script><script src="/assets/js/13.a2e1283e.js" defer></script>
+  </body>
+</html>

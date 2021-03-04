@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Arend 教程，第一部分：1. 基础 | 喵.世界</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css" integrity="sha384-BdGj8xC2eZkQaxoQ8nSLefg4AV4/AwB3Fj+8SUSo7pnKP6Eoy18liIKTPn9oBYNG" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;0,900;1,300;1,700&amp;display=swap">
+    <link rel="alternate" type="application/rss+xml" href="http://xn--i2r.xn--rhqv96g/rss.xml" title="喵.世界 RSS Feed">
+    <link rel="alternate" type="application/atom+xml" href="http://xn--i2r.xn--rhqv96g/feed.atom" title="喵.世界 Atom Feed">
+    <link rel="alternate" type="application/json" href="http://xn--i2r.xn--rhqv96g/feed.json" title="喵.世界 JSON Feed">
+    <meta name="description" content="ex falso quodlibet.">
+    <link rel="preload" href="/assets/css/0.styles.1adb2050.css" as="style"><link rel="preload" href="/assets/js/app.06d5e1c5.js" as="script"><link rel="preload" href="/assets/js/2.56236b0f.js" as="script"><link rel="preload" href="/assets/js/10.19f19bfc.js" as="script"><link rel="prefetch" href="/assets/js/11.0f47e20b.js"><link rel="prefetch" href="/assets/js/12.198c651c.js"><link rel="prefetch" href="/assets/js/13.a2e1283e.js"><link rel="prefetch" href="/assets/js/14.c4c8b1b1.js"><link rel="prefetch" href="/assets/js/3.f8636a19.js"><link rel="prefetch" href="/assets/js/4.5045db6d.js"><link rel="prefetch" href="/assets/js/5.bfd381c1.js"><link rel="prefetch" href="/assets/js/6.cbf3dfef.js"><link rel="prefetch" href="/assets/js/7.9c6970f3.js"><link rel="prefetch" href="/assets/js/8.ea3fdc5c.js"><link rel="prefetch" href="/assets/js/9.fdb8e2bf.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.1adb2050.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="layout"><header data-v-ccdb2dd6><h1 class="header-title" data-v-ccdb2dd6><a href="/" data-v-ccdb2dd6>Arend 教程，第一部分：1. 基础</a></h1> <div class="header-aside" data-v-ccdb2dd6><a href="/about" class="dim-anchor" data-v-ccdb2dd6>about</a> <a href="/post" class="dim-anchor" data-v-ccdb2dd6>posts</a> <a href="/category" class="dim-anchor" data-v-ccdb2dd6>categories</a></div></header> <main><section><div class="content-metadata">
+            7/22/2020
+         <a href="/category/编程语言" class="dim-anchor">编程语言</a><a href="/category/类型论" class="dim-anchor">类型论</a><a href="/category/Arend" class="dim-anchor">Arend</a><a href="/category/翻译" class="dim-anchor">翻译</a></div> <div class="content content__default"><p><em>本文翻译自</em> <a href="https://arend-lang.github.io/documentation/tutorial/PartI/synndef" target="_blank" rel="noopener noreferrer">Arend Tutorial, Part I, Basics<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> <em>，原作者为 <a href="https://github.com/arend-lang" target="_blank" rel="noopener noreferrer">JetBrains Research HoTT and Dependent Types Group (V. Isaev and F. Part)<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。原作品在 Apache 2.0 协议下发表。</em></p> <p>在本章里，我们将介绍 Arend 语言的语法和一些基本结构，以便接下来学习书写定义、命题和证明。</p> <p>Arend 有这几种定义：函数、数据、类和记录。现在我们先考滤函数和数据定义；关于类和记录的详细讲解留到<a href="/posts/records.html">记录和类</a>一章。</p> <p>Arend 本身内置了一些最最基础的定义，并且把他们放在了 Prelude 模块中。比如，Prelude 包含了 <code>Nat</code> 和 <code>Int</code> 类型——分别用来存储自然数和整数——以及相等性类型 <code>=</code>。</p> <h1 id="词法结构"><a href="#词法结构" class="header-anchor">#</a> 词法结构</h1> <p>Arend 里的所有关键字都由反斜线 <code>\</code> 打头。比如说，函数和数据定义分别由 <code>\func</code> 和 <code>\data</code> 开头。</p> <p>如果数字字面量在项中出现，那么他们总是被解释为 <code>Nat</code> 或 <code>Int</code> 类型的值；非负的数字字面量是 <code>Nat</code> 类型的，而负的数字字面量是 <code>Int</code> 类型的。</p> <p>Arend 在标识符的选择中提供了相当大的自由度。除了一小部分例外，Arend 中定义、变量等的名字可以包含大小写字母、数字以及 <code>~!@#$%^&amp;*-+=&lt;&gt;?/|[]:_</code> 中的任意字符。</p> <h1 id="函数"><a href="#函数" class="header-anchor">#</a> 函数</h1> <p>函数定义由 <code>\func</code> 关键字打头。Arend 中的函数是数学意义上的函数。这也就是说，他们是<em>纯粹</em>的，而且不会和环境进行 I/O 交互。</p> <p>一个函数的定义至少要包含函数的名字和函数体。比如说，值为 0 且没有参数的常量函数 <code>f</code> 可以如此定义：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func f =&gt; 0 -- 常量函数
+{- Haskell:
+   f = 0
+-}
+</code></pre></div><p><code>f</code> 的函数体只包括一个数字 <code>0</code>（他的类型是 <code>Nat</code>）。类型检查器推断出来 <code>f</code> 的结果类型也为 <code>Nat</code>，但是我们也可以显式指定这个类型：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func f' : Nat =&gt; 0 -- 常量，带有显式指定的类型
+{- Haskell:
+   f :: Nat
+   f = 0
+-}
+</code></pre></div><p>如果要定义一个有参数的函数，我们可以在函数的名字后面指定他的参数和参数的类型，就像下面这样：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func id (x : Nat) =&gt; x -- 自然数的恒等函数
+\func id' (x : Nat) : Nat =&gt; x -- 跟上一个一样，但是有显式指定的结果类型
+{- Haskell:
+   id :: Nat -&gt; Nat
+   id x = x
+-}
+\func foo (x _ : Nat) (_ : Int) =&gt; x -- 返回第一个参数
+{- Haskell:
+   foo :: Nat -&gt; Nat -&gt; Int -&gt; Nat
+   foo x y z = x
+-}
+</code></pre></div><p>在 <code>foo</code> 的定义中可以看到，我们可以忽略掉没用到的参数的名字，用一个占位符 <code>_</code> 作替代。如果有几个相邻的参数有相同的类型，那么就可以把他们合并起来：<code>(x _ : Nat)</code> 和 <code>(x : Nat) (_ : Nat)</code> 是等价的。</p> <p>注意在 Arend 里，参数的类型必须指定，这跟 Haskell 是不一样的：</p> <div class="language-arend extra-class"><pre class="language-text"><code>-- \func id'' x =&gt; x -- 这个定义是错的！
+{- Haskell:
+   id'' x = x
+-}
+</code></pre></div><p>函数的参数也可以通过 lambda 表达式被等价地从签名上移到函数体里：</p> <div class="language-arend extra-class"><pre class="language-text"><code>-- 参数的类型不能被推断出来，和前面提到的相同
+\func foo' =&gt; \lam (x _ : Nat) (_ : Int) =&gt; x
+-- 但是如果结果类型被显式指定了，那么参数的类型就可以省略掉
+\func foo'' : Nat -&gt; Nat -&gt; Int -&gt; Nat =&gt; \lam x _ _ =&gt; x
+{- Haskell:
+   foo'' :: Nat -&gt; Nat -&gt; Int -&gt; Nat
+   foo'' = \x y z -&gt; x
+-}
+</code></pre></div><p>在这个例子里，我们直接通过在 <code>=&gt;</code> 后书写一个项就定义了函数体。当然，定义函数也有更加复杂的方法，这种方法在定义递归函数之类的函数时会派上用场。这种方法叫做<em>模式匹配</em>，我们<a href="#%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89">马上</a>就会学习这种函数。</p> <h1 id="中缀运算符"><a href="#中缀运算符" class="header-anchor">#</a> 中缀运算符</h1> <p>所有的二元运算符默认是前缀的，就跟普通函数一样。如果要定义一个中缀运算符，则应该在运算符的名字前加上关键字 <code>\infix</code>、<code>\infixl</code> 或 <code>\infixr</code> 的其中一个，再加上一个正整数表明他的优先级：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func \infixl 6 $$ (x y : Nat) =&gt; x
+\func test =&gt; 3 $$ 7 -- test 返回 3
+{- Haskell:
+   infixl 6 $$
+   ($$) x y = x
+   test = 3 $$ 7
+-}
+</code></pre></div><p>优先级可以是 1 到 9 之间的任何正整数。</p> <p>任何二元运算符，即使没被定义成中缀的，也可以在两边加上 <code>` `</code> 后以中缀方式使用。</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func ff (x y : Nat) =&gt; x
+\func ff_test =&gt; 0 `ff` 1
+{- Haskell:
+   ff x y = x
+   ff_test = 3 `ff` 7
+-}
+</code></pre></div><p>中缀运算符也可以以前缀方式使用：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func \infix 6 %% (x y : Nat) =&gt; x
+\func %%-test =&gt; %% 3 7 -- 不需要写 (%%)
+{- Haskell:
+   infix 5 %%
+   (%%) x y = x
+   pp_test = (%%) 3 7
+-}
+</code></pre></div><blockquote><p>练习 1：定义函数 <code>f1</code>、<code>f2</code>、<code>f3</code>、<code>f4</code>、<code>f5</code> 和 <code>f6</code> 的优先级，使得函数 <code>test</code> 通过类型检查。</p></blockquote> <div class="language-arend extra-class"><pre class="language-text"><code>\func f1 (x y : Nat) =&gt; x
+\func f2 : Nat =&gt; 0
+\func f3 (f : Nat -&gt; Nat) (z : Nat) : Int =&gt; 0
+\func f4 : Nat =&gt; 0
+\func f5 =&gt; f1
+\func f6 =&gt; f4
+
+\func test =&gt; f1 f2 f3 f4 f5 f6
+</code></pre></div><h1 id="数据定义"><a href="#数据定义" class="header-anchor">#</a> 数据定义</h1> <p>数据定义允许我们通过指定「生成元素」来定义定义新的<em>归纳类型</em>和<em>高阶归纳类型</em>，这些「生成元素」叫做<em>构造器</em>。</p> <p>最简单的情况是构造器没有任何参数，此时一个归纳类型只是他的构造器构成的有限集合。例如，空类型 <code>Empty</code>、有一个元素的单元类型 <code>Unit</code> 和有两个元素 <code>true</code>、<code>false</code> 的布尔类型 <code>Bool</code> 可以如下定义：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\data Empty
+{- Haskell:
+   data Empty
+-}
+
+\data Unit | unit
+{- Haskell:
+   data Unit = Unit
+-}
+
+\data Bool | false | true
+{- Haskell:
+   data Bool = False | True
+-}
+</code></pre></div><p>定义一个 <code>Bool</code> 的函数基本上就是通过称为<em>模式匹配</em>的方法，分别定义他在 <code>true</code> 和 <code>false</code> 时的值。比如，函数 <code>not</code> 和 <code>if</code> 可以这样定义：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func not (x : Bool) : Bool \with -- 可以省略关键词 \with
+  | true =&gt; false
+  | false =&gt; true
+{- Haskell:
+   not :: Bool -&gt; Bool
+   not True = False
+   not False = True
+-}
+
+\func if (x : Bool) (t e : Nat) : Nat \elim x
+  | true =&gt; t
+  | false =&gt; e
+{- Haskell:
+   if :: Bool -&gt; Nat -&gt; Nat -&gt; Nat
+   if True t e = t
+   if False t e = e
+-}
+</code></pre></div><p>许多时候，归纳类型有一些有参数的构造器。和函数的参数不同的是，我们可以省略参数名称，写 <code>cons T</code> 而非 <code>cons (_ : T)</code>。</p> <p>这些参数的类型可能是正在定义的这个归纳类型本身，一会我们就会在定义自然数时看到这种情况。然而有一个重要的限制：所有归纳类型在他的构造器的参数类型中必须是<em>严格为正</em>的，也就是说，这个类型不能出现在 <code>-&gt;</code> 的左边。一旦没有这个限制，那么我们就可以定义「无类型 lambda 演算的所有项」的类型 <code>K</code>。更进一步地，不会停机的项就可以是 <code>K</code> 的元素。</p> <div class="language-arend extra-class"><pre class="language-text"><code>\data K | k (K -&gt; K)
+\func I =&gt; k (\lam x =&gt; x)
+\func Kc =&gt; k (\lam x =&gt; k (\lam _ =&gt; x))
+\func app (f a : K) : K \elim f
+  | k f' =&gt; f' a
+\func omega =&gt; k (\lam x =&gt; app x x)
+</code></pre></div><p>看另一个例子——表示自然数的类型。Prelude 中的 <code>Nat</code> 类型和 <code>+</code>、<code>*</code> 运算符可以定义如下：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\data Nat | zero | suc Nat
+
+-- 这两个函数是等价的
+\func three =&gt; suc (suc (suc zero))
+\func three' =&gt; 3
+
+-- 数字没有大小限制
+\func bigNumber =&gt; 1000000000000000000000000
+
+\func \infixl 6 + (x y : Nat) : Nat \elim y
+  | 0 =&gt; x
+  | suc y =&gt; suc (x + y)
+{- Haskell:
+   (+) :: Nat -&gt; Nat -&gt; Nat
+   x + Zero = x
+   x + Suc y = Suc (x + y)
+-}
+
+-- 设 n 是一个变量，那么 n + 2 就会被展开成 suc (suc n)，
+-- 但是 2 + n 不会，因为他已经是标准形式了。
+-- 这个行为视 + 的定义而定，更精确地说，
+-- 是视选择哪一个参数进行模式匹配而定。
+
+\func \infixl 7 * (x y : Nat) : Nat \elim y
+  | 0 =&gt; 0
+  | suc y =&gt; x * y + x
+{- Haskell:
+   (*) :: Nat -&gt; Nat -&gt; Nat
+   x * Zero = 0
+   x * Suc y = x * y + x
+-}
+</code></pre></div><p>这并不是定义自然数的唯一方式。刚才这个例子对应的是一元（一进制）的自然数表示。二元（二进制）的自然数可以像下面这样定义：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\data BinNat
+    | zero'
+    | sh+1 BinNat -- x*2+1
+    | sh+2 BinNat -- x*2+2
+</code></pre></div><p>从效率上看，这种定义很明显更优秀。然而，和上面 <code>Nat</code> 的定义相比，在利用归纳法的证明中使用 <code>BinNat</code> 这种定义非常不方便。事实上，Prelude 中的 <code>Nat</code> 类型也很有效率，因为他的算术运算的实现是单独硬编码的。</p> <blockquote><p>练习 2：定义函数 <code>if</code>，使其接受一个布尔值 <code>b</code> 和两个任意类型 <code>A</code> 的值，并当 <code>b</code> 等于 <code>true</code> 时返回第一个值，否则返回第二个。</p></blockquote> <blockquote><p>练习 3：用 <code>if</code> 定义 <code>||</code>。</p></blockquote> <blockquote><p>练习 4：定义自然数的幂和阶乘函数。</p></blockquote> <div class="language-arend extra-class"><pre class="language-text"><code>\func \infixr 8 ^ (x y : Nat) =&gt; {?}
+
+\func fac (x : Nat) =&gt; {?}
+</code></pre></div><blockquote><p>练习 5：定义取模函数 <code>mod</code> 和最大公约数函数 <code>gcd</code>。</p></blockquote> <h1 id="停机与-div"><a href="#停机与-div" class="header-anchor">#</a> 停机与 <code>div</code></h1> <p>函数可以是递归的，但是他们不能随意地调用自己。如果对递归不加以限制，那么任何一个命题都可以被平凡地证明：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func theorem : 0 = 1 =&gt; theorem
+</code></pre></div><p>在依赖类型语言中，类型检查需要检查函数是否停机。这也就是说，语言不能是图灵完全的，因为在这种情况下停机问题是不可判定的。</p> <p>内涵的 Martin-Lof 类型论可以避免这种问题，因为他确保了所有可以定义的函数都是<em>完全的</em>，也就是在任何输入上都会停机。因此，许多定理证明器都在他们类型系统的核心中包含 Martin-Lof 类型论，以此来确保所有函数都停机，并且所有递归函数都是通过<em>结构化递归</em>定义的。Arend 也是如此。</p> <p>举个例子，考虑一下自然数的整除函数 <code>div</code>。一个显然（但不正确）的定义可能像下面这样：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func div (x y : Nat) : Nat =&gt; if (x &lt; y) 0 (suc (div (x - y) y))
+</code></pre></div><p>这个定义有两个问题。1）<code>div x 0</code> 不会停机；2）这个递归不是结构化的，因为结构化递归要求递归调用时的参数在比结构上原本的参数更简单。</p> <p>很多情况下，我们可以通过添加额外的参数来把非结构化递归转换为结构化递归（这些额外的参数会随着递归层数加深而变得结构更为简单）。这个参数的初值可以设定为递归次数的上界：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func div (x y : Nat) =&gt; div' x x y
+  \where
+    \func div' (s x y : Nat) : Nat \elim s
+        | 0 =&gt; 0
+        | suc s =&gt; if (x &lt; y) 0 (suc (div' s (x - y) y))
+</code></pre></div><h1 id="多态"><a href="#多态" class="header-anchor">#</a> 多态</h1> <p>一些定义是多态的，也就是说他们以类型作为参数。这种定义的开头可以使用所有类型的类型 <code>\Type</code>。比如说，多态的恒等函数可以这样写：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func id (A : \Type) (a : A) =&gt; a
+{- Haskell:
+   id :: a -&gt; a
+   id x = x
+-}
+
+\func idType : \Pi (A : \Type) (a : A) -&gt; A =&gt; id
+{- Haskell:
+   idType :: a -&gt; a
+   idType = id
+-}
+</code></pre></div><p>类型 <code>\Pi (a : A) -&gt; B</code> 叫做依赖函数类型，他是普通函数类型 <code>A -&gt; B</code> 的推广。依赖函数的值域可能会因为参数的改变而改变。比如说，类型 <code>\Pi (b : Bool) -&gt; if b Nat Bool</code> 是这样一个函数的类型：他接受一个 <code>Bool</code> 类型的参数，并且视参数返回 <code>Nat</code> 或 <code>Bool</code>——如果 <code>b</code> 是 <code>true</code>，则返回一个 <code>Nat</code>；否则返回一个 <code>Bool</code>。</p> <p>类型 <code>\Pi (A : \Type) (a : A) -&gt; A</code> 也可以等价地写成 <code>\Pi (A : \Type) -&gt; A -&gt; A</code>，因为他的值域并不依赖第二个参数。这个类型的意思就是，一个接受某个类型 <code>A</code> 并返回「一个类型为 <code>A -&gt; A</code> 的函数」的函数。</p> <p>需要注意的是，<code>\Type</code> 事实上并不是<em>所有类型</em>的类型；著名的 Girard 悖论表明，内涵的 Martin-Lof 类型论和所有类型的类型并非连贯一致。要解决这个问题，我们将会引入一个全集的等级系统，但这留到<a href="/posts/universes.html">之后</a>再讨论。不过，用户在大多数时候都不需要考虑这些等级，因为他们会自动被推断并对用户隐藏起来；除非用户进行了不允许的循环定义，此时类型检查器会给出一个错误。</p> <h1 id="隐式参数"><a href="#隐式参数" class="header-anchor">#</a> 隐式参数</h1> <p>在应用函数时，经常会有一些参数是完全被其他参数所确定的。在这种情况下，用户可以让类型检查器推断这些参数并用 <code>_</code> 作为占位符替代实际的参数。比如说，刚才定义的多态 <code>id</code> 函数可以像这样应用：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func idTest =&gt; id _ 0
+</code></pre></div><p>其中类型检查器可以推断出来第一个参数为 <code>Nat</code>，因为这个参数必定是第二个参数的类型（也就是 <code>Nat</code>）。如果类型检查器无法推断出来一个参数应该是什么，那他就会生成一个错误。</p> <p>如果我们发现一个定义的某个参数几乎总是被其他参数指定，那么我们就可以通过将这个参数放在花括号里来把他指定为<em>隐式参数</em>。这样，这个参数就可以被直接跳过：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func id' {A : \Type} (a : A) =&gt; a
+
+\func id'Test =&gt; id' 0
+\func id'Test' =&gt; id' {Nat} 0 -- 隐式参数也可以被显式指定
+</code></pre></div><p>当然，进行参数推断的算法也不是全能的。比如下面这个例子：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func example' {n : Nat} (p : n + n = 3) =&gt; 0
+</code></pre></div><p>算法并不能从 <code>p</code> 推断出来 <code>n</code>，因为 <code>n</code> 是在函数 <code>+</code> 的调用中出现的。如果我们调用 <code>example' pp</code>（其中 <code>pp : 8 = 3</code>），算法是不会推断出 <code>n</code> 为 <code>4</code> 的。</p> <p>然而，算法可以推断出来下面这个例子中的 <code>n</code> 和 <code>m</code>：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func example'' {n m : Nat} (p : suc n = m) =&gt; 0
+\func example''Test (pp : 8 = 3) =&gt; example'' pp
+</code></pre></div><p>造成这种区别的原因是，在这个例子中 <code>n</code> 和 <code>m</code> 是在构造器（<code>suc</code>）和 <code>\data</code>（<code>=</code> 是用 <code>Path</code> 定义的，而 <code>Path</code> 是一个数据类型）的调用中出现的。因为 <code>\data</code> 和构造器是单射的，所以算法总是可以推断出 <code>n</code> 和 <code>m</code>。比如，在 <code>example'' pp</code>（其中 <code>pp : 8 = 3</code>）中，算法可以推断出来 <code>m</code> 必定为 <code>3</code> 而 <code>n</code> 必定为 <code>7</code>。</p> <h1 id="列表与-append"><a href="#列表与-append" class="header-anchor">#</a> 列表与 <code>append</code></h1> <p>到现在我们已经讨论了定义多态的列表类型所需的全部内容：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\data List (A : \Type) | nil | cons A (List A)
+{- Haskell:
+   data List a = Nil | Cons a (List a)
+-}
+
+-- 数据类型的所有参数都是他的构造器的隐式参数
+\func emptyList =&gt; nil {Nat}
+
+-- 运算符 'append'
+\func \infixl 6 ++ {A : \Type} (xs ys : List A) : List A \elim xs
+  | nil =&gt; ys
+  | cons x xs =&gt; cons x (xs ++ ys)
+{- Haskell:
+   (++) :: List a -&gt; List A -&gt; List a
+   Nil ++ ys = ys
+   cons x xs ++ ys = cons x (xs ++ ys)
+-}
+</code></pre></div><blockquote><p>练习 6：定义 <code>map</code> 函数。</p></blockquote> <blockquote><p>练习 7：定义 <code>transpose</code> 函数。他接受一个列表的列表，并将他视为一个矩阵，返回其转置后的结果（也是一个列表的列表）。</p></blockquote> <h1 id="元组和-sigma-类型"><a href="#元组和-sigma-类型" class="header-anchor">#</a> 元组和 Sigma- 类型</h1> <p>对于两个类型 <code>A</code> 和 <code>B</code>，我们可以构造一个所有对 <code>(a, b)</code> 的类型 <code>\Sigma A B</code>，其中 <code>a : A</code>、<code>b : B</code>。类型 <code>\Sigma A B</code> 等价于下面定义的数据类型：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\data Pair | pair A B
+</code></pre></div><p>更广泛地说，任意一组类型 <code>A1</code>、...、<code>An</code> 都可以构成所有元组 <code>(a1, ..., an)</code> 的类型 <code>\Sigma A1 ... An</code>，其中 <code>ai : Ai</code>。平凡地，<code>\Sigma</code> 等价于只有一个元素的 <code>Unit</code> 类型。</p> <p>元组可以是依赖的，其中每个类型 <code>Ai</code> 可以依赖于 <code>a1</code>、...、<code>a{i-1}</code>。来看几个 <code>\Sigma-</code> 类型的例子：</p> <ul><li>类型 <code>\Sigma (A : \Type) (A -&gt; A)</code> 包含了所有对 <code>(A, f)</code>，其中 <code>A</code> 是一个类型而 <code>f</code> 是一个 <code>A -&gt; A</code> 的函数。</li> <li>类型 <code>\Sigma (b : Bool) (if b Nat Bool)</code> 包含了所有对 <code>(b, e)</code>，其中 <code>b</code> 是一个布尔值而 <code>e</code> 是一个 <code>if b Nat Bool</code>。比如，<code>(true, 7)</code> 和 <code>(false, true)</code> 属于这个类型，但是 <code>(false, 7)</code> 和 <code>(true, true)</code> 则不属于。</li> <li>我们之后会看到，对于任意一对自然数 <code>n, m : Nat</code>，都存在一个类型 <code>n &lt; m</code>，表达了其中一个小于另一个，而这个类型的值就是这个命题的证明。于是我们可以定义类型 <code>\Sigma (n : Nat) (n &lt; 10)</code>，他包含了所有小于 <code>10</code> 的自然数。更准确地说，这个类型包含了所有对 <code>(n, p)</code>，其中 <code>n</code> 是一个自然数而 <code>p</code> 是他小于 <code>10</code> 的证明。</li> <li>一个更有趣的例子：类型 <code>\Sigma (n : Nat) (\Sigma (k : Nat) (n = k * k))</code> 包含了所有是平方数的自然数 <code>n</code>，更准确地说，他包含了所有对 <code>(n, p)</code>，其中 <code>n</code> 是一个自然数而 <code>p : \Sigma (k : Nat) (n = k * k)</code> 是 <code>n</code> 为平方数的证明。</li></ul> <p>如果 <code>x</code> 是类型 <code>\Sigma A1 ... An</code> 的一个值，则 <code>x</code> 的第 i 个成员（i 是一个数字字面量）可以通过射影运算符 <code>x.i</code> 访问。注意 eta 等价性对于 Sigma- 类型是成立的：如果 <code>x : \Sigma A1 ... An</code>，那么 <code>(x.1, ..., x.n)</code> 与 <code>x</code> 在计算上是相等的。</p> <h1 id="类型别名"><a href="#类型别名" class="header-anchor">#</a> 类型别名</h1> <p>在依赖类型语言中不需要类型别名，因为我们可以直接定义一个函数返回某个类型，而这个函数就成为了那个类型的别名：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func NatList =&gt; List Nat
+{- Haskell:
+   type NatList = List Nat
+-}
+</code></pre></div><h1 id="命名空间和模块"><a href="#命名空间和模块" class="header-anchor">#</a> 命名空间和模块</h1> <p>可以在一个定义后面添加一个 <code>\where</code> 块。和 Haskell 不同的是，<code>\where</code> 块是由整个定义共享的，而不是特定的某个子句：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func f =&gt; g \where \func g =&gt; 0
+</code></pre></div><p>在 <code>\where</code> 块中的定义几乎和普通的定义行为完全相同。仅有的区别是，他有不同的命名空间：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func gTest =&gt; f.g
+</code></pre></div><p>另外，我们也可以使用 <code>\let</code>，但他比 Haskell 中的 'let' 更为简单且受限。在 Arend 里，<code>\let</code> 不能包含递归函数，并且每个变量只能依赖他之前定义的变量：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\func letExample =&gt; \let
+    | x =&gt; 1
+    | y =&gt; x + x
+    \in x + y * y
+</code></pre></div><p>在 Arend 中，定义可以通过模块来分组：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\module M1 \where {
+    \func f =&gt; 82
+    \func g =&gt; 77
+    \func h =&gt; 25
+}
+
+-- 定义 f、g 和 h 在当前命名空间不可用
+-- 应该通过前缀 M1. 来访问他们
+\func moduleTest =&gt; (M1.f,M1.g,M1.h)
+</code></pre></div><p>如果一个模块被通过 <code>\open</code> 命令打开，那么他的定义可以直接被访问且无需前缀：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\module M2 \where {
+   \open M1
+   \func t =&gt; f
+   \func t' =&gt; g
+   \func t'' =&gt; h
+}
+</code></pre></div><p>也可以只打开一个模块的一部分定义：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\module M3 \where {
+   \open M1(f,g)
+   \func t =&gt; f
+   \func t' =&gt; g
+   \func t'' =&gt; M1.h -- h 没有被打开，所以必须通过前缀访问
+}
+</code></pre></div><p>所有定义都有一个对应的模块：</p> <div class="language-arend extra-class"><pre class="language-text"><code>\module M4 \where {
+   \func functionModule =&gt; 34
+     \where {
+       \func f1 =&gt; 42
+       \func f2 =&gt; 61
+       \func f3 =&gt; 29
+     }
+   \func t =&gt; functionModule.f1
+   \func t' =&gt; functionModule.f2
+   \func t'' =&gt; (f1, f3)
+     \where \open functionModule(f1,f3)
+	-- 这个 \open 影响到 t'' 的 \where- 块，同时也影响 t'' 本身
+}
+</code></pre></div><p>命令 <code>\import X</code> 使得文件 X 在当前文件中可见。<code>\import</code> 同时也做了 <code>\open</code> 做的事，并且所有 <code>\open</code> 的语法也可以应用到 <code>\import</code> 上：</p> <div class="language-arend extra-class"><pre class="language-text"><code>-- 源码目录下应该包含一个叫做 Test.ard 的文件（并且包含 foobar 和 foobar2 的定义）
+-- 以及一个叫做 TestDir 的目录，里面包含文件 Test.ard 和 Test2.ard。
+
+\import Test (foobar \as foobar', foobar2)
+\import TestDir.Test
+-- 如果我们想让一个文件可见，但不想打开他，那么可以这样写：
+\import TestDir.Test2()
+</code></pre></div></div></section></main> <div class="footer" data-v-ffd512ae><a href="/about.html#copy" class="dim-anchor" data-v-ffd512ae>© xy 2019 - 2021</a></div></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.06d5e1c5.js" defer></script><script src="/assets/js/2.56236b0f.js" defer></script><script src="/assets/js/10.19f19bfc.js" defer></script>
+  </body>
+</html>

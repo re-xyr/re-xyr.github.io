@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://xn--i2r.xn--rhqv96g/</id>
+    <title>喵.世界</title>
+    <updated>2021-03-04T06:37:22.908Z</updated>
+    <generator>https://github.com/webmasterish/vuepress-plugin-feed</generator>
+    <link rel="alternate" href="http://xn--i2r.xn--rhqv96g/"/>
+    <link rel="self" href="http://xn--i2r.xn--rhqv96g/feed.atom"/>
+    <subtitle>ex falso quodlibet.</subtitle>
+    <entry>
+        <title type="html"><![CDATA[出发，以及关于本博客的样式]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2020/06/13/moving-on/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2020/06/13/moving-on/">
+        </link>
+        <updated>2020-06-13T14:55:07.000Z</updated>
+        <summary type="html"><![CDATA[距离上次写博客已经四个多月了。四个多月以来我好像做了很多事情，又好像什么都没做。总之，是时候做一点改变了。]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[撰写博客的技术性细节]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2020/07/15/styling-in-blogging/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2020/07/15/styling-in-blogging/">
+        </link>
+        <updated>2020-07-15T13:20:05.000Z</updated>
+        <summary type="html"><![CDATA[在撰写博客（以及任何一篇使用电脑排版的文章；纸质文章则不在乎过多，因为我写过的纸质文章大多不过是应试文章，不值得倾注过多注意力——同时也因为我的手写习惯非常之差，字体极丑）中，我常常会关注一些无关紧要的技术性细节。此处「无关紧要」一词是指相对于文章内容来说；但我认为这些细节对于读者的阅读体验（以及自我满足）来说，是至关重要的。]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Arend 教程，第一部分：1. 基础]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2020/07/22/arend-tutorial-part-i-synndef/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2020/07/22/arend-tutorial-part-i-synndef/">
+        </link>
+        <updated>2020-07-22T11:48:19.000Z</updated>
+        <summary type="html"><![CDATA[在本章里，我们将介绍 Arend 语言的语法和一些基本结构，以便接下来学习书写定义、命题和证明。]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Arend 教程，第一部分：2. 命题与证明]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-propsnproofs/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-propsnproofs/">
+        </link>
+        <updated>2020-07-24T01:04:29.000Z</updated>
+        <summary type="html"><![CDATA[Arend 是基于 Martin-Lof 类型论的一个变种而开发的。这类理论中并不存在一种专门用来表达命题和证明的逻辑语言。相反地，他们通过 Curry-Howard 对应来将命题编码为类型。假命题对应的是空类型，而真命题对应的是单元类型。一个类型的不同元素可以被认为是证明一个命题的不同方法。举个例子，自然数类型就对应了「自然数存在」这个命题，而这个类型的每个元素就是这个命题的一个证明。]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Arend 教程，第一部分：3. 索引数据类型]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-datanproofs/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2020/07/24/arend-tutorial-part-i-datanproofs/">
+        </link>
+        <updated>2020-07-24T23:19:19.000Z</updated>
+        <summary type="html"><![CDATA[如果我们的列表是 nil，那么我们只需要返回 nil。如果列表是 cons x xs，那么我们在 xs 上递归地调用排序并使用（同样基于 List 上的递归而定义的）函数 insert 将 x 插入排序结果。]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Arend 教程，第一部分：4. 相等性]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2020/09/26/arend-tutorial-part-i-idtype/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2020/09/26/arend-tutorial-part-i-idtype/">
+        </link>
+        <updated>2020-09-26T02:29:41.000Z</updated>
+        <summary type="html"><![CDATA[=> (f (\lam x => a = x)).1 idp
+`]]></summary>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[记录一次自杀未遂]]></title>
+        <id>http://xn--i2r.xn--rhqv96g/2021/03/04/suicide/</id>
+        <link href="http://xn--i2r.xn--rhqv96g/2021/03/04/suicide/">
+        </link>
+        <updated>2021-03-04T05:06:05.000Z</updated>
+        <summary type="html"><![CDATA[他的眼睛是那么愤怒，嘴也在抽搐，我想后退但是身体已经僵住动不了了。]]></summary>
+    </entry>
+</feed>
